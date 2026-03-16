@@ -1,0 +1,112 @@
+import "./index.css";
+import { useState } from "react";
+
+export default function App() {
+  const [step, setStep] = useState(0);
+  const [count, setCount] = useState(0);
+  const calendar = new Date();
+  calendar.setDate(calendar.getDate() + count);
+  const formatted = calendar.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  let message;
+
+  if (count === 0) {
+    message = `Today is ${formatted}`;
+  } else if (count > 0) {
+    message = `${count} days from today is ${formatted}`;
+  } else {
+    message = `${Math.abs(count)} days ago was ${formatted}`;
+  }
+  function StepsIncrement() {
+    return (
+      <div className="card">
+        <button className="btn" onClick={() => setStep((s) => s - 1)}>
+          -
+        </button>
+        <p>{`Step:${step}`}</p>
+        <button className="btn" onClick={() => setStep((s) => s + 1)}>
+          +
+        </button>
+      </div>
+    );
+  }
+
+  function DateCounter() {
+    return (
+      <div className="card">
+        <button onClick={() => setCount((c) => c - step)}>-</button>
+        <p>{`Count:${count}`}</p>
+
+        <button onClick={() => setCount((c) => c + step)}>+</button>
+      </div>
+    );
+  }
+
+  function DateDisplay() {
+    return <p>{message}</p>;
+  }
+
+  return (
+    <div className="container">
+      <StepsIncrement />
+      <DateDisplay />
+      <DateCounter />
+    </div>
+  );
+}
+
+// function Card() {
+//   const steps = [1, 2, 3];
+//   const [isOpen, setIsOpen] = useState(true);
+//   const [currentStep, setStep] = useState(1);
+//   const msg = ["one", "two", "three"];
+//   function Previous() {
+//     if (currentStep > 1) setStep(currentStep - 1);
+//   }
+
+//   function Next() {
+//     if (currentStep < 3) setStep(currentStep + 1);
+//   }
+
+//   return (
+//     <>
+//       <div>
+//         <button onClick={() => setIsOpen(!isOpen)}>X</button>
+//       </div>
+//       {isOpen && (
+//         <div className="card">
+//           <div className="steps">
+//             {steps.map((step) => (
+//               <div
+//                 key={step}
+//                 className={step <= currentStep ? "step active" : "step"}
+//               >
+//                 {step}
+//               </div>
+//             ))}
+//           </div>
+//           <p className="message">{msg[currentStep - 1]}</p>
+//           <div className="btn">
+//             <button onClick={Previous}>Previous</button>
+//             <button onClick={Next}>Next</button>
+//           </div>
+//         </div>
+//       )}
+//     </>
+//   );
+// }
+
+// function App() {
+//   return (
+//     <div className="container">
+//       <Card />
+//     </div>
+//   );
+// }
+
+// export default App;
