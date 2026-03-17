@@ -1,7 +1,14 @@
-import React from "react";
-// import ReactDOM from "react-dom";
-import Home from "./Home.js";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Home";
+import Travel from "./Travel";
 
 export default function App() {
-  return <Home />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/travel/:placeName" element={<Travel />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }

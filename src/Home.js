@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./Header.js";
+
 import "./home.css";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [place, setPlace] = useState("");
   const [desc, setDesc] = useState("");
-  const [places, setPlaces] = useState([]);
+  const [places, setPlaces] = useState(() => {
+    const saved = localStorage.getItem("places");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("places", JSON.stringify(places));
+  }, [places]);
 
   function handleAdd() {
     if (!place || !desc) return;
@@ -56,7 +65,7 @@ export default function Home() {
       <div className="places-list">
         {places.map((p) => (
           <div key={p.id} className="place-card">
-            <h3>{p.name}</h3>
+            <Link to={`/travel/${p.name}`}>{p.name}</Link>
             <p>{p.description}</p>
             <button
               className="delPlace"
