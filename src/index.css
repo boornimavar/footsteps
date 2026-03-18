@@ -35,3 +35,8 @@ header {
 
 .place-list {
 }
+
+header h1 {
+  margin: 0;
+  border: 0;
+}
