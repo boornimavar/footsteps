@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Header from "./Header.js";
+import "./index.css";
 
 import "./home.css";
 import { Link } from "react-router-dom";

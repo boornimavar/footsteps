@@ -5,7 +5,6 @@ import { useState } from "react";
 
 export default function Travel() {
   const { placeName } = useParams();
-  const count = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const [startCount, addCount] = useState(1);
   const [things, setThings] = useState("");
   const [sortBy, setSort] = useState("order");
@@ -55,13 +54,14 @@ export default function Travel() {
             onChange={(event) => setThings(event.target.value)}
           />
           <span>Count</span>
+
           <select
             value={startCount}
             onChange={(e) => addCount(Number(e.target.value))}
           >
-            {count.map((c) => (
-              <option key={c} id={c}>
-                {c}
+            {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
+              <option value={num} key={num}>
+                {num}
               </option>
             ))}
           </select>
@@ -69,7 +69,7 @@ export default function Travel() {
             Add
           </button>
         </div>
-        <h1>Welcome to {placeName}</h1>;
+        <h1>Welcome to {placeName}</h1>
       </div>
       {sortedItems.map((t) => (
         <div key={t.id}>
@@ -114,7 +114,16 @@ export default function Travel() {
           SORT BY PACKING STATUS
         </option>
       </select>
-      <button className="clear btn">CLEAR LIST</button>
+      <button
+        className="clear btn"
+        onClick={() => {
+          if (window.confirm("Do you want to clear all items?")) {
+            setItems([]);
+          }
+        }}
+      >
+        CLEAR LIST
+      </button>
     </>
   );
 }
