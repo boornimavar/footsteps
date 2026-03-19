@@ -35,12 +35,14 @@ export default function Home() {
   return (
     <>
       <Header />
+      <h2 className="bright">All The Bright Places</h2>
 
       <div className="place">
-        <h2>All The Bright Places</h2>
+        <label htmlFor="place">place</label>
 
         <input
           id="placeid"
+          className="add"
           type="text"
           placeholder="Enter place"
           value={place}
@@ -58,12 +60,12 @@ export default function Home() {
           onChange={(e) => setDesc(e.target.value)}
         />
 
-        <button className="add" onClick={handleAdd}>
+        <button className="add btn" onClick={handleAdd}>
           Add
         </button>
       </div>
 
-      <div className="places-list">
+      <div className="place-list">
         {places.map((p) => (
           <div key={p.id} className="place-card">
             <Link to={`/travel/${p.name}`}>{p.name}</Link>
