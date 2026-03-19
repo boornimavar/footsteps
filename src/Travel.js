@@ -73,33 +73,41 @@ export default function Travel() {
       <h1>Welcome to {placeName}</h1>
 
       <div className="travel">
-        {sortedItems.map((t) => (
-          <div key={t.id} className="item-list">
-            <input
-              type="checkbox"
-              id="packed"
-              name="subscribe"
-              checked={t.packed}
-              onChange={() =>
-                setItems((prev) =>
-                  prev.map((item) =>
-                    item.id === t.id ? { ...item, packed: !item.packed } : item,
-                  ),
-                )
-              }
-            ></input>
-            <li>{t.name}</li>
-            <li>{t.count}</li>
-            <button
-              className="del btn"
-              onClick={() =>
-                setItems((prev) => prev.filter((item) => item.name !== t.name))
-              }
-            >
-              ❌
-            </button>
-          </div>
-        ))}
+        <div className="item-list">
+          {sortedItems.map((t) => (
+            <div key={t.id} className="item-card">
+              <input
+                type="checkbox"
+                id="packed"
+                name="subscribe"
+                checked={t.packed}
+                onChange={() =>
+                  setItems((prev) =>
+                    prev.map((item) =>
+                      item.id === t.id
+                        ? { ...item, packed: !item.packed }
+                        : item,
+                    ),
+                  )
+                }
+              />
+              <li className={`packed ${t.packed ? "active" : ""}`}>{t.name}</li>
+              <li className={`packed ${t.packed ? "active" : ""}`}>
+                {t.count}
+              </li>
+              <button
+                className="del btn"
+                onClick={() =>
+                  setItems((prev) =>
+                    prev.filter((item) => item.name !== t.name),
+                  )
+                }
+              >
+                ❌
+              </button>
+            </div>
+          ))}
+        </div>
 
         <div className="bottom">
           <select
@@ -107,13 +115,13 @@ export default function Travel() {
             value={sortBy}
             onChange={(e) => setSort(e.target.value)}
           >
-            <option className="order btn" value="order">
+            <option className="btn" value="order">
               SORT BY ORDER
             </option>
-            <option className="desc btn" value="desc">
+            <option className="btn" value="desc">
               SORT BY DESRIPTION
             </option>
-            <option className="status btn" value="status">
+            <option className="btn" value="packed">
               SORT BY PACKING STATUS
             </option>
           </select>
